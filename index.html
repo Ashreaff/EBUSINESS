@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Business & Marketing Digital | FPE Errachidia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   ROOT & RESET
+   ========================================= */
+:root {
+  --sand: #F5EDD6;
+  --terracotta: #C45B35;
+  --terracotta-dark: #A3471F;
+  --deep: #1A1208;
+  --ochre: #D4920A;
+  --teal: #1B6B6B;
+  --cream: #FBF7EE;
+  --muted: #8B7355;
+  --white: #FFFFFF;
+  --border: rgba(196,91,53,0.15);
+
+  --font-display: 'Syne', sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --shadow-sm: 0 2px 12px rgba(26,18,8,0.06);
+  --shadow-md: 0 8px 32px rgba(26,18,8,0.10);
+  --shadow-lg: 0 20px 60px rgba(196,91,53,0.14);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--deep);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--terracotta); border-radius: 99px; }
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 4rem;
+  height: 72px;
+  background: rgba(251,247,238,0.88);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+nav.scrolled {
+  height: 60px;
+  background: rgba(251,247,238,0.97);
+  box-shadow: var(--shadow-sm);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 0.95rem;
+  color: var(--terracotta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.nav-logo-dot {
+  width: 8px; height: 8px;
+  background: var(--terracotta);
+  border-radius: 50%;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.6; }
+}
+.nav-links { display: flex; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  font-size: 0.8rem; font-weight: 500;
+  color: var(--muted); text-decoration: none;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border-radius: 3px;
+  transition: var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: 2px; left: 50%; right: 50%;
+  height: 2px; background: var(--terracotta);
+  transition: var(--transition);
+  border-radius: 1px;
+}
+.nav-links a:hover { color: var(--terracotta); }
+.nav-links a:hover::after { left: 0.9rem; right: 0.9rem; }
+.nav-cta {
+  background: var(--terracotta); color: white !important;
+  padding: 0.55rem 1.2rem !important;
+  border-radius: 3px;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--terracotta-dark) !important; color: white !important; }
+
+/* Hamburger */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 4px; background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--deep); border-radius: 1px;
+  transition: var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed; top: 60px; left: 0; right: 0;
+  background: rgba(251,247,238,0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 999;
+  padding: 1.5rem 2rem;
+  flex-direction: column; gap: 0.3rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--deep); text-decoration: none;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(196,91,53,0.08);
+  transition: color 0.2s;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--terracotta); }
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 72px;
+  position: relative; overflow: hidden;
+}
+.hero-noise {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: 0.5; pointer-events: none;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 65% 75% at 85% 50%, rgba(196,91,53,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 35% 45% at 15% 85%, rgba(212,146,10,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 10%, rgba(27,107,107,0.04) 0%, transparent 60%);
+}
+.hero-pattern {
+  position: absolute; right: 0; top: 0;
+  width: 50%; height: 100%;
+  background: var(--sand);
+  clip-path: polygon(9% 0%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+/* Geometric ornament */
+.hero-pattern-inner {
+  position: absolute; right: 0; top: 0;
+  width: 50%; height: 100%; z-index: 0;
+  overflow: hidden;
+  clip-path: polygon(9% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.geo-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(196,91,53,0.15);
+}
+.geo-circle-1 { width: 420px; height: 420px; top: 50%; left: 50%; transform: translate(-30%, -50%); }
+.geo-circle-2 { width: 280px; height: 280px; top: 50%; left: 50%; transform: translate(-20%, -50%); }
+.geo-circle-3 { width: 140px; height: 140px; top: 50%; left: 50%; transform: translate(-10%, -50%); background: rgba(196,91,53,0.04); }
+
+.hero-left {
+  padding: 6rem 3rem 4rem 6rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 1.8rem;
+  opacity: 0; transform: translateY(12px);
+  animation: heroIn 0.8s ease forwards 0.2s;
+}
+.hero-eyebrow-line { width: 28px; height: 2px; background: var(--terracotta); flex-shrink: 0; }
+.hero-eyebrow-badge {
+  background: rgba(196,91,53,0.1);
+  border: 1px solid rgba(196,91,53,0.2);
+  padding: 0.25rem 0.7rem;
+  border-radius: 2px;
+  font-size: 0.68rem;
+}
+@keyframes heroIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 4.5vw, 4.6rem);
+  font-weight: 800; line-height: 1.02;
+  margin-bottom: 1.4rem;
+  opacity: 0; transform: translateY(16px);
+  animation: heroIn 0.9s ease forwards 0.35s;
+}
+.hero h1 em {
+  font-family: var(--font-serif);
+  font-style: italic; color: var(--terracotta);
+  font-weight: 400;
+}
+.hero-desc {
+  font-size: 1.05rem; color: var(--muted);
+  line-height: 1.75; max-width: 420px;
+  margin-bottom: 2.5rem;
+  opacity: 0; transform: translateY(16px);
+  animation: heroIn 0.9s ease forwards 0.5s;
+}
+.hero-ctas {
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(16px);
+  animation: heroIn 0.9s ease forwards 0.65s;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--terracotta); color: white;
+  padding: 0.9rem 2.2rem; border-radius: 3px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: var(--transition);
+  border: 2px solid var(--terracotta);
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.btn-primary:hover::before { transform: translateX(100%); }
+.btn-primary:hover { background: var(--terracotta-dark); border-color: var(--terracotta-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-outline {
+  background: transparent; color: var(--deep);
+  padding: 0.9rem 2.2rem; border-radius: 3px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid rgba(26,18,8,0.25);
+  transition: var(--transition);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-outline:hover { background: var(--deep); color: white; border-color: var(--deep); transform: translateY(-2px); }
+
+.hero-right {
+  padding: 4rem 5rem 4rem 2rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+  opacity: 0; transform: translateY(20px);
+  animation: heroIn 1s ease forwards 0.55s;
+}
+.hero-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 1.8rem 1.5rem; border-radius: 6px;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--terracotta);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.stat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.stat-card:hover::before { transform: scaleX(1); }
+.stat-card:first-child {
+  grid-column: 1 / -1;
+  background: var(--terracotta);
+  color: white;
+  border: none;
+}
+.stat-card:first-child::before { background: rgba(255,255,255,0.3); }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 800;
+  line-height: 1; letter-spacing: -0.02em;
+}
+.stat-card:first-child .stat-num { color: white; }
+.stat-label {
+  font-size: 0.82rem; color: var(--muted);
+  margin-top: 0.5rem; font-weight: 500; line-height: 1.4;
+}
+.stat-card:first-child .stat-label { color: rgba(255,255,255,0.72); }
+.stat-icon {
+  font-size: 0.9rem; margin-bottom: 0.8rem; display: block;
+  opacity: 0.5;
+}
+.stat-card:first-child .stat-icon { opacity: 0.7; }
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.5rem; z-index: 2;
+  opacity: 0; animation: heroIn 1s ease forwards 1.2s;
+}
+.scroll-hint span {
+  font-size: 0.65rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted);
+}
+.scroll-line {
+  width: 1px; height: 44px;
+  background: linear-gradient(to bottom, var(--terracotta), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.25; transform: scaleY(1); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1.15); }
+}
+
+/* =========================================
+   SECTIONS COMMON
+   ========================================= */
+section { padding: 6rem 6rem; }
+.section-tag {
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--terracotta);
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+.section-tag::before { content: ''; width: 22px; height: 2px; background: currentColor; flex-shrink: 0; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.9rem);
+  font-weight: 800; line-height: 1.08;
+  margin-bottom: 1rem; letter-spacing: -0.01em;
+}
+.section-title em {
+  font-family: var(--font-serif);
+  font-style: italic; font-weight: 400;
+  color: var(--terracotta);
+}
+.section-sub {
+  color: var(--muted); font-size: 1rem;
+  line-height: 1.75; max-width: 560px;
+}
+
+/* =========================================
+   ABOUT
+   ========================================= */
+.about {
+  background: var(--deep); color: white;
+  position: relative; overflow: hidden;
+}
+.about::before {
+  content: 'FPE';
+  position: absolute; right: -1rem; bottom: -3rem;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 18rem; line-height: 1;
+  color: rgba(255,255,255,0.025);
+  pointer-events: none; user-select: none;
+  letter-spacing: -0.05em;
+}
+.about .section-tag { color: var(--ochre); }
+.about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: center; position: relative; z-index: 1; }
+.about-left .section-sub { color: rgba(255,255,255,0.55); }
+.about-desc {
+  color: rgba(255,255,255,0.6); line-height: 1.8;
+  margin-top: 1.5rem; font-size: 0.95rem;
+}
+.about-features { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 2.5rem; }
+.feature-item {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--ochre);
+  border-radius: 4px;
+  transition: var(--transition);
+}
+.feature-item:hover {
+  background: rgba(255,255,255,0.07);
+  transform: translateX(6px);
+}
+.feature-icon { font-size: 1.5rem; flex-shrink: 0; }
+.feature-text h4 {
+  font-family: var(--font-display);
+  font-size: 0.9rem; font-weight: 700;
+  margin-bottom: 0.3rem; color: white;
+}
+.feature-text p { font-size: 0.83rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+/* =========================================
+   PROGRAMME NUMBERS BAR
+   ========================================= */
+.numbers-bar {
+  background: var(--terracotta);
+  padding: 0;
+}
+.numbers-inner {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  max-width: 100%;
+}
+.number-item {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+  position: relative;
+  transition: var(--transition);
+}
+.number-item:last-child { border-right: none; }
+.number-item:hover { background: rgba(0,0,0,0.08); }
+.number-big {
+  font-family: var(--font-display);
+  font-size: 3.5rem; font-weight: 800;
+  color: white; line-height: 1;
+  display: block; letter-spacing: -0.02em;
+}
+.number-label {
+  font-size: 0.78rem; color: rgba(255,255,255,0.65);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-top: 0.5rem; font-weight: 500;
+}
+
+/* =========================================
+   MODULES
+   ========================================= */
+.modules { background: var(--sand); }
+.modules-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; margin-bottom: 4rem; align-items: end;
+}
+.semester-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.semester-block {
+  background: white; border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(196,91,53,0.1);
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.semester-block:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+.semester-head {
+  background: var(--terracotta); color: white;
+  padding: 1.1rem 1.6rem;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.semester-head::after {
+  content: attr(data-sem);
+  font-size: 2rem; font-weight: 800;
+  opacity: 0.2; line-height: 1;
+}
+.semester-head.s2 { background: var(--teal); }
+.semester-head.s3 { background: var(--ochre); }
+.semester-head.s4 { background: var(--deep); }
+.semester-modules { padding: 0.4rem 0; }
+.module-item {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.65rem 1.4rem;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-size: 0.84rem;
+  transition: background 0.2s;
+}
+.module-item:last-child { border-bottom: none; }
+.module-item:hover { background: rgba(196,91,53,0.03); }
+.module-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--terracotta); flex-shrink: 0;
+}
+
+/* =========================================
+   COMPETENCES
+   ========================================= */
+.competences { background: white; }
+.comp-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 3.5rem;
+}
+.comp-card {
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(196,91,53,0.1);
+  border-radius: 8px; position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: default;
+}
+.comp-card-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(196,91,53,0.03) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.comp-card:hover .comp-card-bg { opacity: 1; }
+.comp-card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--terracotta);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.comp-card:hover::after { transform: scaleX(1); }
+.comp-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+.comp-num {
+  font-family: var(--font-display);
+  font-size: 4rem; font-weight: 800;
+  color: rgba(196,91,53,0.08); line-height: 1;
+  margin-bottom: 0.8rem; display: block;
+  transition: color 0.3s;
+}
+.comp-card:hover .comp-num { color: rgba(196,91,53,0.12); }
+.comp-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  margin-bottom: 0.8rem; line-height: 1.3;
+  position: relative;
+}
+.comp-card p {
+  font-size: 0.86rem; color: var(--muted); line-height: 1.65;
+  position: relative;
+}
+
+/* =========================================
+   DEBOUCHES
+   ========================================= */
+.debouches {
+  background: var(--cream);
+  position: relative; overflow: hidden;
+}
+.debouches::after {
+  content: '';
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
+  opacity: 0.3;
+}
+.deb-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end; margin-bottom: 4rem;
+}
+.deb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.deb-col {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 2.5rem;
+  transition: var(--transition);
+}
+.deb-col:hover { box-shadow: var(--shadow-md); }
+.deb-col h3 {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--terracotta);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.deb-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.deb-list li {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.9rem; color: var(--deep);
+  padding: 0.5rem 0.6rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.deb-list li:hover { background: rgba(196,91,53,0.04); }
+.deb-arrow {
+  width: 20px; height: 20px; flex-shrink: 0;
+  background: rgba(196,91,53,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--terracotta); font-size: 0.7rem; font-weight: 700;
+  transition: var(--transition);
+}
+.deb-list li:hover .deb-arrow { background: var(--terracotta); color: white; }
+
+/* =========================================
+   ADMISSION
+   ========================================= */
+.admission {
+  background: var(--terracotta); color: white;
+  position: relative; overflow: hidden;
+}
+.admission::before {
+  content: '';
+  position: absolute; top: -50%; right: -10%;
+  width: 500px; height: 500px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%; pointer-events: none;
+}
+.admission::after {
+  content: '';
+  position: absolute; bottom: -30%; left: -5%;
+  width: 300px; height: 300px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 50%; pointer-events: none;
+}
+.adm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; z-index: 1; }
+.admission .section-title { color: white; }
+.admission .section-title em { color: var(--ochre); }
+.admission .section-tag { color: rgba(255,255,255,0.65); }
+.admission .section-tag::before { background: rgba(255,255,255,0.4); }
+.adm-text {
+  color: rgba(255,255,255,0.72); margin-top: 1.5rem; line-height: 1.8; font-size: 0.95rem;
+}
+.adm-steps { display: flex; flex-direction: column; gap: 1rem; }
+.adm-step {
+  display: flex; align-items: flex-start; gap: 1.4rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 1.4rem 1.5rem; border-radius: 6px;
+  backdrop-filter: blur(4px);
+  transition: var(--transition);
+}
+.adm-step:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateX(5px);
+}
+.adm-num {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 800;
+  color: rgba(255,255,255,0.25); flex-shrink: 0;
+  line-height: 1; min-width: 2.5rem;
+}
+.adm-step h4 {
+  font-family: var(--font-display);
+  font-size: 0.92rem; margin-bottom: 0.35rem; font-weight: 700;
+}
+.adm-step p { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+/* =========================================
+   CONTACT
+   ========================================= */
+.contact { background: var(--deep); color: white; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+.contact .section-tag { color: var(--ochre); }
+.contact-info { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+.contact-item {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.contact-item:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.12);
+}
+.contact-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: rgba(196,91,53,0.15);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.contact-item h4 {
+  font-size: 0.72rem; color: rgba(255,255,255,0.4);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.35rem;
+}
+.contact-item p { font-size: 0.9rem; color: rgba(255,255,255,0.9); line-height: 1.5; }
+.contact-map-wrap {
+  position: relative;
+}
+.contact-map {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 8px; overflow: hidden;
+  height: 320px; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem;
+  position: relative;
+  transition: var(--transition);
+}
+.contact-map:hover { border-color: rgba(212,146,10,0.3); }
+.map-pulse {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.map-pin-icon { font-size: 3rem; position: relative; z-index: 2; }
+.map-ring {
+  position: absolute; width: 60px; height: 60px;
+  border: 2px solid rgba(212,146,10,0.3);
+  border-radius: 50%;
+  animation: mapRing 2s ease-out infinite;
+}
+.map-ring-2 {
+  position: absolute; width: 90px; height: 90px;
+  border: 1px solid rgba(212,146,10,0.15);
+  border-radius: 50%;
+  animation: mapRing 2s ease-out infinite 0.6s;
+}
+@keyframes mapRing {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.map-label { font-size: 1rem; color: rgba(255,255,255,0.8); font-weight: 600; }
+.map-sublabel { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+.map-cta {
+  margin-top: 0.5rem; color: var(--ochre);
+  font-size: 0.82rem; text-decoration: none;
+  border: 1px solid rgba(212,146,10,0.35);
+  padding: 0.5rem 1.3rem; border-radius: 3px;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.map-cta:hover {
+  background: var(--ochre); color: white;
+  border-color: var(--ochre);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+  background: #0C0802; color: rgba(255,255,255,0.35);
+  padding: 2.5rem 6rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.78rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-weight: 800; color: var(--terracotta);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  font-size: 0.88rem;
+}
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  color: rgba(255,255,255,0.3);
+  text-decoration: none; font-size: 0.78rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--terracotta); }
+
+/* =========================================
+   FADE-IN ANIMATIONS
+   ========================================= */
+.fade-in {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1), transform 0.75s cubic-bezier(0.4,0,0.2,1);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.fade-left {
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.fade-left.visible { opacity: 1; transform: translateX(0); }
+
+/* =========================================
+   BACK TO TOP BUTTON
+   ========================================= */
+.back-to-top {
+  position: fixed; bottom: 2rem; right: 2rem;
+  width: 46px; height: 46px;
+  background: var(--terracotta); color: white;
+  border: none; border-radius: 50%;
+  font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  opacity: 0; transform: translateY(10px);
+  pointer-events: none; z-index: 500;
+}
+.back-to-top.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+.back-to-top:hover { background: var(--terracotta-dark); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+/* =========================================
+   COUNTER ANIMATION
+   ========================================= */
+.count-up { display: inline-block; }
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1024px) {
+  section { padding: 5rem 3rem; }
+  .hero-left { padding: 6rem 2rem 4rem 3rem; }
+  .hero-right { padding: 4rem 3rem 4rem 2rem; }
+  nav { padding: 0 2rem; }
+  footer { padding: 2rem 3rem; }
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 4rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; }
+
+  .hero { grid-template-columns: 1fr; }
+  .hero-pattern, .hero-pattern-inner { display: none; }
+  .hero-left { padding: 5.5rem 1.5rem 2rem; }
+  .hero-right { padding: 2rem 1.5rem 4rem; }
+
+  .about-grid,
+  .modules-header,
+  .deb-header,
+  .deb-grid,
+  .adm-grid,
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  .numbers-inner { grid-template-columns: 1fr 1fr; }
+  .number-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .number-item:nth-child(2), .number-item:nth-child(4) { border-right: none; }
+
+  .semester-grid { grid-template-columns: 1fr; }
+  .comp-grid { grid-template-columns: 1fr; }
+
+  footer {
+    flex-direction: column; gap: 1rem;
+    text-align: center;
+  }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .stat-card:first-child { grid-column: auto; }
+  .hero-ctas { flex-direction: column; }
+  .btn-primary, .btn-outline { text-align: center; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    FPE Errachidia · E-Business
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">La Filière</a></li>
+    <li><a href="#modules">Programme</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#debouches">Débouchés</a></li>
+    <li><a href="#admission">Admission</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mob-link">La Filière</a>
+  <a href="#modules" class="mob-link">Programme</a>
+  <a href="#competences" class="mob-link">Compétences</a>
+  <a href="#debouches" class="mob-link">Débouchés</a>
+  <a href="#admission" class="mob-link">Admission</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="home">
+  <div class="hero-noise"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-pattern-inner">
+    <div class="geo-circle geo-circle-1"></div>
+    <div class="geo-circle geo-circle-2"></div>
+    <div class="geo-circle geo-circle-3"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      FPE Errachidia
+      <span class="hero-eyebrow-badge">OFPPT · Filière Professionnelle</span>
+    </div>
+    <h1>E-Business &amp;<br><em>Marketing</em><br>Digital</h1>
+    <p class="hero-desc">
+      Une formation professionnelle d'excellence au cœur de la transformation numérique.
+      Maîtrisez les outils du commerce électronique et du marketing digital pour bâtir votre carrière dans l'économie de demain.
+    </p>
+    <div class="hero-ctas">
+      <a href="#modules" class="btn-primary">
+        Découvrir le programme
+        <span>→</span>
+      </a>
+      <a href="#admission" class="btn-outline">Candidater</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-icon">🎓</span>
+        <div class="stat-num">Bac+2</div>
+        <div class="stat-label">Niveau de la formation · Diplôme Technicien Spécialisé</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📅</span>
+        <div class="stat-num count-up" data-target="4">4</div>
+        <div class="stat-label">Semestres de formation intensive</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📈</span>
+        <div class="stat-num"><span class="count-up" data-target="90">90</span>%</div>
+        <div class="stat-label">Taux d'insertion professionnelle</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Découvrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-left fade-in">
+      <div class="section-tag">À Propos</div>
+      <h2 class="section-title">Une formation<br><em>ancrée</em> dans<br>le réel</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.55)">
+        La filière E-Business &amp; Marketing Digital de la FPE Errachidia forme des techniciens spécialisés capables d'intégrer rapidement le monde de l'entreprise.
+      </p>
+      <p class="about-desc">
+        Portée par l'OFPPT et dispensée au sein de la Formation Professionnelle d'Errachidia, cette filière allie théorie solide et pratique intensive.
+        Vous serez formés aux réalités du marché marocain et international du numérique.
+      </p>
+    </div>
+    <div class="about-features fade-in" style="transition-delay:0.15s">
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-text">
+          <h4>Formation orientée employabilité</h4>
+          <p>Stages en entreprise intégrés, projets réels et partenariats avec des entreprises locales et nationales.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💻</div>
+        <div class="feature-text">
+          <h4>Outils numériques professionnels</h4>
+          <p>Google Analytics, Meta Ads, Shopify, CMS, SEO/SEA — les mêmes outils utilisés par les professionnels.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div class="feature-text">
+          <h4>Encadrement pédagogique de qualité</h4>
+          <p>Des formateurs expérimentés, des méthodes actives et un suivi personnalisé tout au long du parcours.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-text">
+          <h4>Ouverture internationale</h4>
+          <p>Enseignement en arabe, français et anglais. Préparation au marché de l'emploi régional et international.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NUMBERS BAR ===================== -->
+<div class="numbers-bar">
+  <div class="numbers-inner">
+    <div class="number-item fade-in">
+      <span class="number-big count-up" data-target="4">4</span>
+      <span class="number-label">Semestres</span>
+    </div>
+    <div class="number-item fade-in" style="transition-delay:0.1s">
+      <span class="number-big count-up" data-target="20">20</span>
+      <span class="number-label">Modules</span>
+    </div>
+    <div class="number-item fade-in" style="transition-delay:0.2s">
+      <span class="number-big count-up" data-target="8">8</span>
+      <span class="number-label">Semaines de stage</span>
+    </div>
+    <div class="number-item fade-in" style="transition-delay:0.3s">
+      <span class="number-big count-up" data-target="90">90</span>
+      <span class="number-label">% Insertion pro.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODULES ===================== -->
+<section class="modules" id="modules">
+  <div class="modules-header">
+    <div class="fade-in">
+      <div class="section-tag">Programme</div>
+      <h2 class="section-title">4 semestres,<br><em>une vision</em><br>complète</h2>
+    </div>
+    <p class="section-sub fade-in" style="transition-delay:0.1s">
+      Le programme couvre l'ensemble des domaines du commerce électronique et du marketing digital,
+      de la création de boutiques en ligne à la stratégie de communication digitale.
+    </p>
+  </div>
+
+  <div class="semester-grid">
+    <div class="semester-block fade-in">
+      <div class="semester-head" data-sem="S1">Semestre 1 — Fondamentaux</div>
+      <div class="semester-modules">
+        <div class="module-item"><div class="module-dot"></div>Techniques d'expression et communication</div>
+        <div class="module-item"><div class="module-dot"></div>Informatique appliquée</div>
+        <div class="module-item"><div class="module-dot"></div>Introduction au commerce électronique</div>
+        <div class="module-item"><div class="module-dot"></div>Fondements du marketing</div>
+        <div class="module-item"><div class="module-dot"></div>Gestion de l'entreprise</div>
+        <div class="module-item"><div class="module-dot"></div>Langue étrangère (Anglais des affaires)</div>
+      </div>
+    </div>
+
+    <div class="semester-block fade-in" style="transition-delay:0.1s">
+      <div class="semester-head s2" data-sem="S2">Semestre 2 — Digital &amp; Web</div>
+      <div class="semester-modules">
+        <div class="module-item"><div class="module-dot" style="background:var(--teal)"></div>Création de sites web &amp; CMS</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--teal)"></div>Réseaux sociaux &amp; Community Management</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--teal)"></div>Référencement naturel (SEO)</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--teal)"></div>Marketing de contenu</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--teal)"></div>Comptabilité &amp; gestion financière</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--teal)"></div>Droit commercial numérique</div>
+      </div>
+    </div>
+
+    <div class="semester-block fade-in" style="transition-delay:0.2s">
+      <div class="semester-head s3" data-sem="S3">Semestre 3 — E-Commerce</div>
+      <div class="semester-modules">
+        <div class="module-item"><div class="module-dot" style="background:var(--ochre)"></div>Création &amp; gestion de boutique en ligne</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--ochre)"></div>Publicité en ligne (Google Ads / Meta Ads)</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--ochre)"></div>Email marketing &amp; automation</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--ochre)"></div>Logistique &amp; gestion des commandes</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--ochre)"></div>Analyse de données (Google Analytics)</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--ochre)"></div>Relation client &amp; CRM</div>
+      </div>
+    </div>
+
+    <div class="semester-block fade-in" style="transition-delay:0.3s">
+      <div class="semester-head s4" data-sem="S4">Semestre 4 — Projet &amp; Stage</div>
+      <div class="semester-modules">
+        <div class="module-item"><div class="module-dot" style="background:var(--deep)"></div>Stratégie digitale avancée</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--deep)"></div>Dropshipping &amp; modèles d'affaires</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--deep)"></div>Entrepreneuriat &amp; création d'entreprise</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--deep)"></div>Stage en entreprise (8 semaines)</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--deep)"></div>Projet de fin de formation</div>
+        <div class="module-item"><div class="module-dot" style="background:var(--deep)"></div>Préparation à l'emploi &amp; entretiens</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPETENCES ===================== -->
+<section class="competences" id="competences">
+  <div class="fade-in">
+    <div class="section-tag">Compétences Acquises</div>
+    <h2 class="section-title">Ce que vous<br><em>saurez faire</em></h2>
+  </div>
+  <div class="comp-grid">
+    <div class="comp-card fade-in">
+      <div class="comp-card-bg"></div>
+      <span class="comp-num">01</span>
+      <h3>Créer &amp; gérer une boutique en ligne</h3>
+      <p>Shopify, WooCommerce, Jumia — concevoir, lancer et administrer une boutique e-commerce complète avec gestion des produits, commandes et paiements.</p>
+    </div>
+    <div class="comp-card fade-in" style="transition-delay:0.1s">
+      <div class="comp-card-bg"></div>
+      <span class="comp-num">02</span>
+      <h3>Piloter des campagnes publicitaires</h3>
+      <p>Google Ads, Facebook &amp; Instagram Ads — créer et optimiser des campagnes de publicité digitale avec suivi du ROI et analyse des performances.</p>
+    </div>
+    <div class="comp-card fade-in" style="transition-delay:0.2s">
+      <div class="comp-card-bg"></div>
+      <span class="comp-num">03</span>
+      <h3>Animer les réseaux sociaux</h3>
+      <p>Stratégie de contenu, planning éditorial, community management et gestion de la e-réputation d'une marque ou d'une entreprise.</p>
+    </div>
+    <div class="comp-card fade-in" style="transition-delay:0.05s">
+      <div class="comp-card-bg"></div>
+      <span class="comp-num">04</span>
+      <h3>Optimiser le référencement (SEO)</h3>
+      <p>Audit technique, recherche de mots-clés, optimisation on-page et off-page pour améliorer la visibilité sur les moteurs de recherche.</p>
+    </div>
+    <div class="comp-card fade-in" style="transition-delay:0.15s">
+      <div class="comp-card-bg"></div>
+      <span class="comp-num">05</span>
+      <h3>Analyser les données web</h3>
+      <p>Google Analytics, tableaux de bord et rapports de performance — transformer les données en insights actionnables pour la prise de décision.</p>
+    </div>
+    <div class="comp-card fade-in" style="transition-delay:0.25s">
+      <div class="comp-card-bg"></div>
+      <span class="comp-num">06</span>
+      <h3>Développer une stratégie digitale</h3>
+      <p>Concevoir une stratégie marketing complète : positionnement, ciblage, canaux, budget et mesure des résultats pour toute organisation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEBOUCHES ===================== -->
+<section class="debouches" id="debouches">
+  <div class="deb-header">
+    <div class="fade-in">
+      <div class="section-tag">Débouchés Professionnels</div>
+      <h2 class="section-title">Votre <em>avenir</em><br>commence ici</h2>
+    </div>
+    <p class="section-sub fade-in" style="transition-delay:0.1s">
+      La formation ouvre les portes d'un large éventail de métiers du numérique, au Maroc comme à l'international.
+    </p>
+  </div>
+  <div class="deb-grid">
+    <div class="deb-col fade-in">
+      <h3>🎯 Métiers visés</h3>
+      <ul class="deb-list">
+        <li><span class="deb-arrow">→</span>Chargé(e) de marketing digital</li>
+        <li><span class="deb-arrow">→</span>Community Manager</li>
+        <li><span class="deb-arrow">→</span>Gestionnaire e-commerce</li>
+        <li><span class="deb-arrow">→</span>Responsable SEO/SEA</li>
+        <li><span class="deb-arrow">→</span>Traffic Manager</li>
+        <li><span class="deb-arrow">→</span>Consultant en transformation digitale</li>
+        <li><span class="deb-arrow">→</span>Chargé(e) de communication digitale</li>
+        <li><span class="deb-arrow">→</span>Entrepreneur / Auto-entrepreneur digital</li>
+      </ul>
+    </div>
+    <div class="deb-col fade-in" style="transition-delay:0.15s">
+      <h3>🏢 Secteurs &amp; Entreprises</h3>
+      <ul class="deb-list">
+        <li><span class="deb-arrow">→</span>Agences de marketing digital</li>
+        <li><span class="deb-arrow">→</span>Startups et PME numériques</li>
+        <li><span class="deb-arrow">→</span>Grandes enseignes retail &amp; e-commerce</li>
+        <li><span class="deb-arrow">→</span>Banques &amp; institutions financières</li>
+        <li><span class="deb-arrow">→</span>Télécommunications (IAM, Orange, Inwi)</li>
+        <li><span class="deb-arrow">→</span>Hôtellerie &amp; tourisme digital</li>
+        <li><span class="deb-arrow">→</span>Freelance &amp; télétravail international</li>
+        <li><span class="deb-arrow">→</span>Création de votre propre boutique en ligne</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ADMISSION ===================== -->
+<section class="admission" id="admission">
+  <div class="adm-grid">
+    <div class="fade-in">
+      <div class="section-tag">Conditions d'Admission</div>
+      <h2 class="section-title">Rejoignez<br>la <em>prochaine</em><br>promotion</h2>
+      <p class="adm-text">
+        La filière E-Business &amp; Marketing Digital est ouverte aux candidats titulaires du Baccalauréat ou équivalent.
+        L'admission se fait sur dossier et concours d'entrée organisé par l'OFPPT.
+      </p>
+      <p class="adm-text" style="margin-top:0.8rem">
+        Les candidatures sont ouvertes chaque année. Renseignez-vous auprès de l'administration pour les dates de la prochaine session.
+      </p>
+      <a href="#contact" class="btn-outline" style="margin-top:2rem; display:inline-flex; border-color:rgba(255,255,255,0.4); color:white;">
+        Nous contacter <span>→</span>
+      </a>
+    </div>
+    <div class="adm-steps fade-in" style="transition-delay:0.15s">
+      <div class="adm-step">
+        <div class="adm-num">01</div>
+        <div>
+          <h4>Retrait du dossier</h4>
+          <p>Retirez votre dossier de candidature auprès du secrétariat de la FPE Errachidia ou téléchargez-le en ligne.</p>
+        </div>
+      </div>
+      <div class="adm-step">
+        <div class="adm-num">02</div>
+        <div>
+          <h4>Dépôt du dossier</h4>
+          <p>Déposez votre dossier complet (diplômes, relevés de notes, CIN, photos) dans les délais indiqués.</p>
+        </div>
+      </div>
+      <div class="adm-step">
+        <div class="adm-num">03</div>
+        <div>
+          <h4>Concours d'entrée</h4>
+          <p>Participez aux tests écrits et à l'entretien de motivation devant le jury de sélection.</p>
+        </div>
+      </div>
+      <div class="adm-step">
+        <div class="adm-num">04</div>
+        <div>
+          <h4>Inscription définitive</h4>
+          <p>Après admission, procédez à votre inscription administrative et commencez votre formation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="fade-in">
+      <div class="section-tag">Contact</div>
+      <h2 class="section-title" style="color:white;">Trouvez-<em>nous</em></h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.5);">
+        L'équipe pédagogique de la filière E-Business &amp; Marketing Digital est disponible pour répondre à toutes vos questions.
+      </p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Adresse</h4>
+            <p>Formation Professionnelle d'Errachidia (FPE)<br>Errachidia, Région Drâa-Tafilalet, Maroc</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Téléphone</h4>
+            <p>+212 (0)5 35 57 XX XX</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>fpe.errachidia@ofppt.ma</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <h4>Horaires du secrétariat</h4>
+            <p>Lundi – Vendredi : 8h30 – 16h30</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-map-wrap fade-in" style="transition-delay:0.15s">
+      <div class="contact-map">
+        <div class="map-pulse">
+          <div class="map-ring"></div>
+          <div class="map-ring-2"></div>
+          <span class="map-pin-icon">📌</span>
+        </div>
+        <p class="map-label">FPE Errachidia</p>
+        <p class="map-sublabel">Drâa-Tafilalet · Maroc</p>
+        <a href="https://maps.google.com/?q=FPE+Errachidia+Maroc" target="_blank" class="map-cta">
+          Voir sur Google Maps <span>→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-logo">FPE Errachidia · E-Business &amp; Marketing Digital</div>
+  <div class="footer-links">
+    <a href="#about">La Filière</a>
+    <a href="#modules">Programme</a>
+    <a href="#admission">Admission</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div>© 2024–2025 OFPPT · Formation Professionnelle d'Errachidia · Tous droits réservés</div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut">↑</button>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+/* ---- Intersection Observer: fade-in ---- */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in, .fade-left').forEach(el => observer.observe(el));
+
+/* ---- Navbar scroll effect ---- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+/* ---- Hamburger menu ---- */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+});
+
+document.querySelectorAll('.mob-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+/* ---- Back to top ---- */
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) {
+    backToTop.classList.add('show');
+  } else {
+    backToTop.classList.remove('show');
+  }
+});
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ---- Active nav link on scroll ---- */
+const sections = document.querySelectorAll('section[id], div.numbers-bar');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) {
+      current = s.getAttribute('id') || '';
+    }
+  });
+  navLinks.forEach(a => {
+    a.style.color = '';
+    if (a.getAttribute('href') === '#' + current) {
+      a.style.color = 'var(--terracotta)';
+    }
+  });
+});
+
+/* ---- Counter animation ---- */
+function animateCount(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 1400;
+  const start = performance.now();
+  const update = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target);
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.count-up').forEach(el => counterObserver.observe(el));
+</script>
+</body>
+</html>
